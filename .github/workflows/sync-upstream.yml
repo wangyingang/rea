@@ -1,0 +1,26 @@
+name: Sync upstream
+
+on:
+  schedule:
+    # Daily at 03:17 UTC (11:17 China Standard Time).
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-upstream
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync main from upstream
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api --method POST \
+            "repos/${GITHUB_REPOSITORY}/merge-upstream" \
+            --field branch=main
