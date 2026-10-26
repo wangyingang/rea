@@ -2,8 +2,9 @@ name: Sync upstream
 
 on:
   schedule:
-    # Daily at 03:17 UTC (11:17 China Standard Time).
-    - cron: "17 3 * * *"
+    # Daily at 01:00 China Standard Time (UTC+8).
+    - cron: "0 1 * * *"
+      timezone: "Asia/Shanghai"
   workflow_dispatch:
 
 permissions:
